@@ -18,7 +18,7 @@ class AtmsControllerTest < ActionController::TestCase
 
   test "should create atm" do
     assert_difference('Atm.count') do
-      post :create, atm: { bank: @atm.bank, location: @atm.location, references: @atm.references }
+      post :create, atm: { bank_id: @atm.bank_id, location: @atm.location }
     end
 
     assert_redirected_to atm_path(assigns(:atm))
@@ -35,7 +35,7 @@ class AtmsControllerTest < ActionController::TestCase
   end
 
   test "should update atm" do
-    patch :update, id: @atm, atm: { bank: @atm.bank, location: @atm.location, references: @atm.references }
+    patch :update, id: @atm, atm: { bank_id: @atm.bank_id, location: @atm.location }
     assert_redirected_to atm_path(assigns(:atm))
   end
 

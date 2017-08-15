@@ -11,15 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170815102152) do
+ActiveRecord::Schema.define(version: 20170815134825) do
 
   create_table "atms", force: :cascade do |t|
+    t.integer  "bank_id"
     t.string   "location"
-    t.string   "references"
-    t.string   "bank"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "atms", ["bank_id"], name: "index_atms_on_bank_id"
 
   create_table "banks", force: :cascade do |t|
     t.string   "name"
@@ -31,13 +32,14 @@ ActiveRecord::Schema.define(version: 20170815102152) do
   create_table "customers", force: :cascade do |t|
     t.string   "name"
     t.string   "mobile"
-    t.string   "atm_number"
+    t.string   "atm_no"
     t.integer  "atm_pin"
-    t.integer  "balance"
-    t.string   "references"
-    t.string   "bank"
+    t.integer  "bank_id"
+    t.decimal  "balance"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "customers", ["bank_id"], name: "index_customers_on_bank_id"
 
 end

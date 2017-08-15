@@ -3,17 +3,15 @@
 one:
   name: MyString
   mobile: MyString
-  atm_number: MyString
+  atm_no: MyString
   atm_pin: 1
-  balance: 1
-  references: MyString
-  bank: MyString
+  bank_id: 
+  balance: 9.99
 
 two:
   name: MyString
   mobile: MyString
-  atm_number: MyString
+  atm_no: MyString
   atm_pin: 1
-  balance: 1
-  references: MyString
-  bank: MyString
+  bank_id: 
+  balance: 9.99
