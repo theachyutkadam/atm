@@ -1,0 +1,29 @@
+<%= form_for(@atm) do |f| %>
+  <% if @atm.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@atm.errors.count, "error") %> prohibited this atm from being saved:</h2>
+
+      <ul>
+      <% @atm.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :location %><br>
+    <%= f.text_field :location %>
+  </div>
+  <div class="field">
+    <%= f.label :references %><br>
+    <%= f.text_field :references %>
+  </div>
+  <div class="field">
+    <%= f.label :bank %><br>
+    <%= f.text_field :bank %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
