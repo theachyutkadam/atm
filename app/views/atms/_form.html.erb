@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :bank_id %><br>
-    <%= f.text_field :bank_id %>
+    <%= f.select :bank_id, Bank.all.pluck(:name, :id)%>
   </div>
   <div class="field">
     <%= f.label :location %><br>

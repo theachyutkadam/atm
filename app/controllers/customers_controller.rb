@@ -25,6 +25,8 @@ class CustomersController < ApplicationController
   # POST /customers.json
   def create
     @customer = Customer.new(customer_params)
+    @customer.atm_no = rand(1111111111111111..9999999999999999)
+    @customer.atm_pin = rand(1111..9999)
 
     respond_to do |format|
       if @customer.save

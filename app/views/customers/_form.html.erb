@@ -19,17 +19,10 @@
     <%= f.label :mobile %><br>
     <%= f.text_field :mobile %>
   </div>
-  <div class="field">
-    <%= f.label :atm_no %><br>
-    <%= f.text_field :atm_no %>
-  </div>
-  <div class="field">
-    <%= f.label :atm_pin %><br>
-    <%= f.number_field :atm_pin %>
-  </div>
+  
   <div class="field">
     <%= f.label :bank_id %><br>
-    <%= f.text_field :bank_id %>
+    <%= f.select :bank_id, Bank.all.pluck(:name, :id)%>
   </div>
   <div class="field">
     <%= f.label :balance %><br>
