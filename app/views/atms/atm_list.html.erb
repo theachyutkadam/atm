@@ -1,0 +1,3 @@
+<% @atms.each do |atm| %>
+  <%= link_to "#{atm.location}", atm_path(atm.id) %>
+<% end %>

@@ -1,14 +1,25 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Bank:</strong>
-  <%= @atm.bank %>
-</p>
-
-<p>
-  <strong>Location:</strong>
-  <%= @atm.location %>
-</p>
-
-<%= link_to 'Edit', edit_atm_path(@atm) %> |
-<%= link_to 'Back', atms_path %>
+<table border="1">
+	<tr>
+		<td><%= button_tag "Withdraw"%></td>
+    <th rowspan="5">
+    	Display
+    </th>
+    <td><%= button_tag "Withdraw"%></td>
+  </tr>
+  <tr>
+    <td><%= button_tag "Withdraw"%></td>
+    <td><%= button_tag "Withdraw"%></td>
+  </tr>
+  <tr>
+    <td><%= button_tag "Withdraw"%></td>
+    <td><%= button_tag "Withdraw"%></td>
+  </tr>
+  <tr>
+    <td><%= button_tag "Withdraw"%></td>
+    <td><%= button_tag "Withdraw"%></td>
+  </tr>
+  <tr>
+		<td><%= button_tag "Withdraw"%></td>
+    <td><%= button_tag "Withdraw"%></td>
+  </tr>
+</table>

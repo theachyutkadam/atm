@@ -14,8 +14,9 @@
   <tbody>
     <% @atms.each do |atm| %>
       <tr>
-        <td><%= atm.bank %></td>
+        <td><%= atm.bank.name%></td>
         <td><%= atm.location %></td>
+        <td><%= link_to 'Transaction', transactions_path(atm_id: atm.id)%></td>
         <td><%= link_to 'Show', atm %></td>
         <td><%= link_to 'Edit', edit_atm_path(atm) %></td>
         <td><%= link_to 'Destroy', atm, method: :delete, data: { confirm: 'Are you sure?' } %></td>

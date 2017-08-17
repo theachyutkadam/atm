@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170815134825) do
+ActiveRecord::Schema.define(version: 20170816115612) do
 
   create_table "atms", force: :cascade do |t|
     t.integer  "bank_id"
@@ -41,5 +41,19 @@ ActiveRecord::Schema.define(version: 20170815134825) do
   end
 
   add_index "customers", ["bank_id"], name: "index_customers_on_bank_id"
+
+  create_table "transactions", force: :cascade do |t|
+    t.string   "transaction_type"
+    t.decimal  "balance"
+    t.integer  "customer_id"
+    t.integer  "bank_id"
+    t.integer  "atm_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "transactions", ["atm_id"], name: "index_transactions_on_atm_id"
+  add_index "transactions", ["bank_id"], name: "index_transactions_on_bank_id"
+  add_index "transactions", ["customer_id"], name: "index_transactions_on_customer_id"
 
 end
