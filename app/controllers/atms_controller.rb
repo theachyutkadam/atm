@@ -1,10 +1,14 @@
 class AtmsController < ApplicationController
   before_action :set_atm, only: [:show, :edit, :update, :destroy]
 
+  def atm_list
+    @atms = Atm.all
+  end
   # GET /atms
   # GET /atms.json
   def index
-    @atms = Atm.all
+    bank = Bank.find(params[:bank_id])
+    @atms = bank.atms
   end
 
   # GET /atms/1
