@@ -4,7 +4,9 @@ class TransactionsController < ApplicationController
   # GET /transactions
   # GET /transactions.json
   def index
+    @atm = Atm.find(params[:atm_id])
     @bank = Bank.find(params[:bank_id])
+    @cust = Customer.all
     @transactions = Transaction.all
   end
 

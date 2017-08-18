@@ -1,25 +1,22 @@
-<table border="1">
-	<tr>
-		<td><%= button_tag "Withdraw"%></td>
-    <th rowspan="5">
-    	Display
-    </th>
-    <td><%= button_tag "Withdraw"%></td>
-  </tr>
-  <tr>
-    <td><%= button_tag "Withdraw"%></td>
-    <td><%= button_tag "Withdraw"%></td>
-  </tr>
-  <tr>
-    <td><%= button_tag "Withdraw"%></td>
-    <td><%= button_tag "Withdraw"%></td>
-  </tr>
-  <tr>
-    <td><%= button_tag "Withdraw"%></td>
-    <td><%= button_tag "Withdraw"%></td>
-  </tr>
-  <tr>
-		<td><%= button_tag "Withdraw"%></td>
-    <td><%= button_tag "Withdraw"%></td>
-  </tr>
-</table>
+<%= form_for :atm_center do|f|%>
+  <br><br><br><br><br><br><table border="1" align="center">
+    <tr>
+      <td align="center"><%= button_tag "Transfer"%></td>
+      <th rowspan="5" width="200" height="400">
+        <div class="field">
+          <%= f.text_field :atm_no %><br><br>
+          <%= f.password_field :atm_pin %>
+        </div>
+      </th>
+      <td align="center"><%= button_tag "Submit"%></td>
+    </tr>
+    <tr>
+      <td align="center"><%= button_tag "Withdraw"%></td>
+      <td align="center"><%= button_tag "Delete"%></td>
+    </tr>
+    <tr>
+      <td align="center"><%= button_tag "Deposite"%></td>
+      <td align="center"><%= button_tag "Cancal"%></td>
+    </tr> 
+  </table>
+<% end -%>
