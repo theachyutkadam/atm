@@ -1,25 +1,24 @@
 <p id="notice"><%= notice %></p>
-
-<h1>Listing Atms</h1>
-
-<table>
+<%=form_for :index do |f|%>
+  <%= f.hidden_field :bank_id, value: @bank.id %>
+<%end%>
+<table border="1">
   <thead>
     <tr>
       <th>Bank</th>
-      <th>Location</th>
-      <th colspan="3"></th>
+      <th>Atm</th>
+      <th colspan="3">Transaction type</th>
     </tr>
   </thead>
 
   <tbody>
     <% @atms.each do |atm| %>
       <tr>
-        <td><%= atm.bank.name%></td>
+        <td><%= atm.bank.name %></td>
         <td><%= atm.location %></td>
-        <td><%= link_to 'Transaction', transactions_path(atm_id: atm.id)%></td>
-        <td><%= link_to 'Show', atm %></td>
-        <td><%= link_to 'Edit', edit_atm_path(atm) %></td>
-        <td><%= link_to 'Destroy', atm, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to "Withdraw", withdraw_transactions_path(bank_id: @bank.id) %></td>
+        <td><%= link_to "Transfer", transfer_transactions_path(bank_id: @bank.id) %></td>
+        <td><%= link_to "Deposit", deposit_transactions_path(bank_id: @bank.id) %></td>
       </tr>
     <% end %>
   </tbody>

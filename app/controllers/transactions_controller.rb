@@ -10,6 +10,60 @@ class TransactionsController < ApplicationController
     @transactions = Transaction.all
   end
 
+  def transfer
+  end
+  def withdraw
+  end
+  def deposit
+  end
+
+  def transfer_create
+    @cust = Customer.new
+    @cust.balance = params[:transfer][:balance]
+    @cust.save
+  end
+
+  def withdraw_create
+    flag = false
+    @cust = Customer.all
+    if(params[:transaction][:atm_no] == @cust.atm_no && params[:transaction][:atm_pin] == @cust.atm_pin)
+      flag = true
+      @cust = Customer.new
+      @cust.balance = params[:transaction][:balance]
+      @cust.save
+      format.html {redirect_to @atm, notice: 'Transaction was successfully updated.'}
+    else
+      flag = false
+      format.html {redirect_to @transaction, notice: 'Login failed.' }
+    end
+  end
+
+  def deposit_create
+    @cust = Customer.new
+    boolean flag = false
+    @cust = Customer.all
+    if(params[:index][:atm_no] == @cust.atm_no && params[:index][:atm_pin] == @cust.atm_pin)
+      flag = true
+      @cust.balance = params[:deposit][:balance]
+      @cust.save
+      format.html {redirect_to @transaction, notice: 'Login was successfully updated.' }
+    else
+      flag = false
+      format.html {redirect_to @atm, notice: 'Transaction was successfully updated.'}
+    end
+  end
+
+  def login
+    boolean flag = false
+    @cust = Customer.all
+    if(params[:index][:atm_no] == @cust.atm_no && params[:index][:atm_pin] == @cust.atm_pin)
+      flag = true
+      format.html {redirect_to @transaction, notice: 'Login was successfully updated.' }
+    else
+      flag = false
+      format.html {redirect_to @atm, notice: 'Transaction was successfully updated.'}
+    end
+  end
   # GET /transactions/1
   # GET /transactions/1.json
   def show
@@ -27,18 +81,12 @@ class TransactionsController < ApplicationController
   # POST /transactions
   # POST /transactions.json
   def create
-    @transaction = Transaction.new(transaction_params)
-
-    respond_to do |format|
-      if @transaction.save
-        format.html { redirect_to @transaction, notice: 'Transaction was successfully created.' }
-        format.json { render :show, status: :created, location: @transaction }
-      else
-        format.html { render :new }
-        format.json { render json: @transaction.errors, status: :unprocessable_entity }
-      end
-    end
+    @transaction = Transaction.new
+    @transaction.balance = params[:index][:balance]
+    @transaction.transaction_type = params[:index][:transaction]
+    @transaction.save
   end
+
 
   # PATCH/PUT /transactions/1
   # PATCH/PUT /transactions/1.json
