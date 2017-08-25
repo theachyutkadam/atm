@@ -1,14 +1,16 @@
 class AtmsController < ApplicationController
-  before_action :set_atm, only: [:show, :edit, :update, :destroy]
+  before_action :set_atm, only: [:show, :edit, :update, :destroy, :transaction]
 
   def atm_list
+    @bank = Bank.find(params[:bank_id])
     @atms = Atm.all
   end
   # GET /atms
   # GET /atms.json
   def index
-    bank = Bank.find(params[:bank_id])
-    @atms = bank.atms
+    @cust = Customer.all
+    @bank = Bank.find(params[:bank_id])
+    @atms = @bank.atms
   end
 
   # GET /atms/1
@@ -25,6 +27,15 @@ class AtmsController < ApplicationController
   def edit
   end
 
+  def transaction
+    if params[:select_trans][:commit] == 'withdraw'
+      redirect_to transactions_withdraw_path
+    elsif params[:select_trans][:commit] == 'deposit'
+      redirect_to transactions_deposit_path
+    elsif params[:select_trans][:commit] == 'transfer'
+      redirect_to transactions_transfer_path
+    end
+  end
   # POST /atms
   # POST /atms.json
   def create

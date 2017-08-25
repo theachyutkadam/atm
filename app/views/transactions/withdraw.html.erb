@@ -1,0 +1,10 @@
+<h1>Withdraw Transaction Only </h1>
+<%= form_for :transaction, url: withdraw_create_transactions_path do |f|%>
+  
+  <%= f.text_field :bank_id, value: bank_id %><br><br>  
+
+  Atm Number : <%= f.text_field :atm_no %><br><br>
+  Atm PIN : <%= f.password_field :atm_pin %><br><br>
+  Enter Amonunt : <%= f.text_field :balance %><br><br>
+  <%= f.submit "Submit"%>
+<% end -%>

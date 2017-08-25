@@ -1,0 +1,7 @@
+<%= form_for :transaction do |f|%>
+  <%= f.text_field :atm_no %>
+  <%= f.password_field :atm_pin %>
+  <%f.select :transaction, [['Withdraw'],['Deposit'],['Transfer']] %>
+  <%= f.text_field :amount %>
+  <%= f.submit "Submit"%>
+<% end -%>
