@@ -15,6 +15,7 @@ class CustomersController < ApplicationController
   # GET /customers/new
   def new
     @customer = Customer.new
+    @bank = Bank.find(params[:bank_id])
   end
 
   # GET /customers/1/edit
