@@ -11,10 +11,18 @@ class TransactionsController < ApplicationController
   end
 
   def transfer
+    @atm = Atm.find(params[:atm_id])
+    @bank = Bank.find(params[:bank_id])
   end
+
   def withdraw
+    @atm = Atm.find(params[:atm_id])
+    @bank = Bank.find(params[:bank_id])
   end
+
   def deposit
+    @atm = Atm.find(params[:atm_id])
+    @bank = Bank.find(params[:bank_id])
   end
 
   def transfer_create
@@ -24,32 +32,58 @@ class TransactionsController < ApplicationController
   end
 
   def withdraw_create
-    flag = false
-    @cust = Customer.all
-    if(params[:transaction][:atm_no] == @cust.atm_no && params[:transaction][:atm_pin] == @cust.atm_pin)
-      flag = true
-      @cust = Customer.new
-      @cust.balance = params[:transaction][:balance]
-      @cust.save
-      format.html {redirect_to @atm, notice: 'Transaction was successfully updated.'}
+    atm_no = params[:transaction][:atm_no]
+    atm_pin = params[:transaction][:atm_pin]
+    customers = Customer.all
+    flag = 0
+    customers.each do |c|
+      if c.atm_no == atm_no && c.atm_pin == atm_pin.to_i
+        flag = 1
+        break
+      end
+    end
+    if flag == 1
+      puts "balance is : "
+      transaction = Transaction.new
+      transaction.transaction_type = params[:transaction][:transaction_type]
+      transaction.balance = params[:transaction][:balance]
+      transaction.atm_id = params[:transaction][:atm_id]
+      transaction.customer_id = Customer.find_by_atm_no(atm_no).id
+      transaction.bank_id = params[:transaction][:bank_id]
+      transaction.save
+      puts "Transaction Successfully saved"
+      redirect_to banks_path
     else
-      flag = false
-      format.html {redirect_to @transaction, notice: 'Login failed.' }
+      redirect_to withdraw_transactions_path(atm_id: params[:transaction][:atm_id], bank_id: params[:transaction][:bank_id])
+      puts "Login failed"
     end
   end
 
   def deposit_create
-    @cust = Customer.new
-    boolean flag = false
-    @cust = Customer.all
-    if(params[:index][:atm_no] == @cust.atm_no && params[:index][:atm_pin] == @cust.atm_pin)
-      flag = true
-      @cust.balance = params[:deposit][:balance]
-      @cust.save
-      format.html {redirect_to @transaction, notice: 'Login was successfully updated.' }
+    atm_no = params[:transaction][:atm_no]
+    atm_pin = params[:transaction][:atm_pin]
+    deposit_amt = params[:transaction][:balance]
+    customers = Customer.all
+    flag = 0
+    customers.each do |c|
+      if atm_no == c.atm_no && atm_pin.to_i == c.atm_pin
+        flag = 1
+        break
+      end
+    end
+    if flag == 1
+      transaction = Transaction.new
+      transaction.transaction_type = params[:transaction][:transaction_type]
+      transaction.balance = deposit_amt
+      transaction.customer_id = Customer.find_by_atm_no(atm_no).id
+      transaction.bank_id = params[:transaction][:bank_id]
+      transaction.atm_id = params[:transaction][:atm_id]
+      transaction.save
+      puts "Transaction successfully"
+      redirect_to banks_path
     else
-      flag = false
-      format.html {redirect_to @atm, notice: 'Transaction was successfully updated.'}
+      puts "login failed"
+      redirect_to deposit_transactions_path(atm_id: params[:transaction][:atm_id], bank_id: params[:transaction][:bank_id])
     end
   end
 

@@ -16,9 +16,9 @@
       <tr>
         <td><%= atm.bank.name %></td>
         <td><%= atm.location %></td>
-        <td><%= link_to "Withdraw", withdraw_transactions_path(bank_id: @bank.id) %></td>
-        <td><%= link_to "Transfer", transfer_transactions_path(bank_id: @bank.id) %></td>
-        <td><%= link_to "Deposit", deposit_transactions_path(bank_id: @bank.id) %></td>
+        <td><%= link_to "Withdraw", withdraw_transactions_path(bank_id: @bank.id, atm_id: atm.id) %></td>
+        <td><%= link_to "Transfer", transfer_transactions_path(bank_id: @bank.id, atm_id: atm.id) %></td>
+        <td><%= link_to "Deposit", deposit_transactions_path(bank_id: @bank.id, atm_id: atm.id) %></td>
       </tr>
     <% end %>
   </tbody>

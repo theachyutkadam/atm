@@ -40,7 +40,6 @@ class AtmsController < ApplicationController
   # POST /atms.json
   def create
     @atm = Atm.new(atm_params)
-
     respond_to do |format|
       if @atm.save
         format.html { redirect_to @atm, notice: 'Atm was successfully created.' }
