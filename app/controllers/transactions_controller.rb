@@ -34,19 +34,22 @@ class TransactionsController < ApplicationController
   def withdraw_create
     atm_no = params[:transaction][:atm_no]
     atm_pin = params[:transaction][:atm_pin]
+    withdraw_amt = params[:transaction][:balance]
     customers = Customer.all
     flag = 0
     customers.each do |c|
       if c.atm_no == atm_no && c.atm_pin == atm_pin.to_i
         flag = 1
+        amp = c.balance
+        a = withdraw_amt.to_i - amp
+        Customer.find(c.id).update(balance: a)
         break
       end
     end
     if flag == 1
-      puts "balance is : "
       transaction = Transaction.new
       transaction.transaction_type = params[:transaction][:transaction_type]
-      transaction.balance = params[:transaction][:balance]
+      transaction.balance = withdraw_amt
       transaction.atm_id = params[:transaction][:atm_id]
       transaction.customer_id = Customer.find_by_atm_no(atm_no).id
       transaction.bank_id = params[:transaction][:bank_id]
@@ -68,6 +71,10 @@ class TransactionsController < ApplicationController
     customers.each do |c|
       if atm_no == c.atm_no && atm_pin.to_i == c.atm_pin
         flag = 1
+        amp = c.balance
+        a = deposit_amt.to_i + amp
+        ts a
+        Customer.find(c.id).update(balance: a)
         break
       end
     end
