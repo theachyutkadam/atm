@@ -25,12 +25,6 @@ class TransactionsController < ApplicationController
     @bank = Bank.find(params[:bank_id])
   end
 
-  def transfer_create
-    @cust = Customer.new
-    @cust.balance = params[:transfer][:balance]
-    @cust.save
-  end
-
   def withdraw_create
     atm_no = params[:transaction][:atm_no]
     atm_pin = params[:transaction][:atm_pin]
@@ -73,7 +67,6 @@ class TransactionsController < ApplicationController
         flag = 1
         amp = c.balance
         a = deposit_amt.to_i + amp
-        ts a
         Customer.find(c.id).update(balance: a)
         break
       end
@@ -91,6 +84,43 @@ class TransactionsController < ApplicationController
     else
       puts "login failed"
       redirect_to deposit_transactions_path(atm_id: params[:transaction][:atm_id], bank_id: params[:transaction][:bank_id])
+    end
+  end
+
+  def transfer_create
+    new_amount = params[:transaction][:balance]
+    atm_no = params[:transaction][:atm_no]
+    atm_pin = params[:transaction][:atm_pin]
+    receiver_atm_no = params[:transaction][:receiver_atm_no]
+    transaction_type = params[:transaction][:transaction_type]
+    bank_id = params[:transaction][:bank_id]
+    atm_id = params[:transaction][:atm_id]
+    customers = Customer.all
+    flag = 0
+    customers.each do |cust|
+      if atm_no == cust.atm_no && atm_pin.to_i == cust.atm_pin
+        flag = 1
+        last_bal = cust.balance
+        sended_bal = new_amount.to_i - last_bal
+        Customer.find(cust.id).update(balance: sended_bal)
+        break
+      end
+    end
+    if flag == 1
+      transaction = Transaction.new
+      transaction.transaction_type = params[:transaction][:transaction_type]
+      transaction.balance = new_amount
+      transaction.atm_id = params[:transaction][:atm_id]
+      transaction.bank_id = params[:transaction][:bank_id]
+      transaction.customer_id = Customer.find_by_atm_no(receiver_atm_no).id
+      transaction.save
+      receive_bal = new_amount.to_i + transaction.customer.balance
+      Customer.find(transaction.customer_id).update(balance: receive_bal)
+      puts "Transaction Successfully"
+      redirect_to banks_path
+    else
+      puts "Transaction failed"
+      redirect_to transfer_transactions_path(bank_id: bank_id, atm_id: atm_id)
     end
   end
 
