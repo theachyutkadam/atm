@@ -1,6 +1,5 @@
 <p id="notice"><%= notice %></p>
 <marquee align="center" bgcolor="blue" scrolldelay="10" style="color: white" ><h1>Listing Banks</h1></marquee>
-
 <table border="1">
   <thead>
     <tr>
@@ -16,7 +15,7 @@
         <td><%= bank.name %></td>
         <td><%= bank.branch %></td>
         <td><%= link_to "ATM", atms_path(bank_id: bank.id)%></td>
-        <td><%= link_to "Create New Account", new_customer_path(bank_id: bank.id) %></td>
+        <td><%= link_to "Create New Account", customers_path(bank_id: bank.id) %></td>
       </tr>
     <% end %>
   </tbody>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170816115612) do
+ActiveRecord::Schema.define(version: 20170829194059) do
 
   create_table "atms", force: :cascade do |t|
     t.integer  "bank_id"
@@ -55,5 +55,36 @@ ActiveRecord::Schema.define(version: 20170816115612) do
   add_index "transactions", ["atm_id"], name: "index_transactions_on_atm_id"
   add_index "transactions", ["bank_id"], name: "index_transactions_on_bank_id"
   add_index "transactions", ["customer_id"], name: "index_transactions_on_customer_id"
+
+  create_table "transfers", force: :cascade do |t|
+    t.integer  "reciever_id"
+    t.integer  "sender_id"
+    t.integer  "bank_id"
+    t.integer  "atm_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.decimal  "balance"
+  end
+
+  add_index "transfers", ["atm_id"], name: "index_transfers_on_atm_id"
+  add_index "transfers", ["bank_id"], name: "index_transfers_on_bank_id"
+
+  create_table "users", force: :cascade do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end

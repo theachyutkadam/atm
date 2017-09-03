@@ -1,22 +1,30 @@
 Rails.application.routes.draw do
+  root to: "banks#index"
+  resources :customers
+  resources :banks
+
+  devise_for :users
   resources :transactions do
     collection do
       get :withdraw
       get :deposit
-      get :transfer
       post :withdraw_create
       post :deposit_create
-      post :transfer_create
       get :login
     end
   end
-  resources :customers
   resources :atms do
     collection do
       get :atm_list
     end
   end
-  resources :banks
+  resources :transfers do
+    collection do
+      get :transfer
+      post :transfer_create
+    end
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

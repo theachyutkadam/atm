@@ -1,6 +1,5 @@
-
 <p id="notice"><%= notice %></p>
-
+<h1><%= @bank.name%></h1>
 <table border="1">
   <thead>
     <tr>
@@ -29,4 +28,4 @@
   </tbody>
 </table>
 <br><br>
-<%= link_to "new", new_customer_path %>
+<%= link_to "new", new_customer_path(bank_id: @bank.id) %>
