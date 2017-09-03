@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  reciever_id: 1
+  sender_id: 1
+  customer_id: 
+  bank_id: 
+  atm_id: 
+
+two:
+  reciever_id: 1
+  sender_id: 1
+  customer_id: 
+  bank_id: 
+  atm_id: 

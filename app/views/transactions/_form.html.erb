@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :transaction_type %><br>
-    <%= f.select :transaction_type, [['Withdraw'],['Deposit'],['Transfer']] %>
+    <%= f.select :transaction_type, (['Withdraw'],['Deposit']),{include_blank: "Select type"} %>
   </div>
   <div class="field">
     <%= f.label :balance %><br>

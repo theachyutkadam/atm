@@ -1,17 +1,14 @@
 <p id="notice"><%= notice %></p>
-
-<h1>Listing Customers</h1>
-
-<table>
+<h1><%= @bank.name%></h1>
+<table border="1">
   <thead>
     <tr>
       <th>Name</th>
       <th>Mobile</th>
       <th>Atm no</th>
-      <th>Atm pin</th>
       <th>Bank</th>
       <th>Balance</th>
-      <th colspan="3"></th>
+      <th colspan="3">Links</th>
     </tr>
   </thead>
 
@@ -21,8 +18,7 @@
         <td><%= customer.name %></td>
         <td><%= customer.mobile %></td>
         <td><%= customer.atm_no %></td>
-        <td><%= customer.atm_pin %></td>
-        <td><%= customer.bank %></td>
+        <td><%= customer.bank_id %></td>
         <td><%= customer.balance %></td>
         <td><%= link_to 'Show', customer %></td>
         <td><%= link_to 'Edit', edit_customer_path(customer) %></td>
@@ -31,7 +27,5 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Customer', new_customer_path %>
+<br><br>
+<%= link_to "new", new_customer_path(bank_id: @bank.id) %>

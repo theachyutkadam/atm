@@ -4,16 +4,21 @@ class CustomersController < ApplicationController
   # GET /customers
   # GET /customers.json
   def index
-    @customers = Customer.all
+    @bank = Bank.find(params[:bank_id])
+    @customers = @bank.customers
   end
 
   # GET /customers/1
   # GET /customers/1.json
   def show
+    @bank = Bank.find(@customer.bank_id)
   end
 
   # GET /customers/new
   def new
+    puts params[:bank_id]
+    puts "***************************"
+    @bank = Bank.find(params[:bank_id])
     @customer = Customer.new
   end
 
@@ -27,7 +32,9 @@ class CustomersController < ApplicationController
     @customer = Customer.new(customer_params)    
     @customer.atm_no = rand(1111111111111111..9999999999999999)
     @customer.atm_pin = rand(1111..9999)
-    
+    @bank = Bank.find(@customer.bank_id)
+    puts @bank
+    puts "********"
     respond_to do |format|
       if @customer.save
         format.html { redirect_to @customer, notice: 'Customer was successfully created.' }
