@@ -19,7 +19,6 @@
       <tr>
         <td><%= transaction.bank.name %></td>
         <td><%= transaction.customer.name %></td>
-        <td><%= transaction.atm.name %></td>
         <td><%= transaction.transaction_type %></td>
         <td><%= transaction.balance %></td>
         <td><%= link_to 'Show', transaction %></td>
@@ -29,5 +28,4 @@
     <% end %>
   </tbody>
 </table>
-<br>
-<%= link_to 'New Transaction', new_transaction_path %>
+<%= link_to "back", banks_path(bank_id: @bank.id) %>

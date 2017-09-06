@@ -1,0 +1,12 @@
+<h1>Deposit Transaction Only </h1>
+<%= form_for :transaction, url: deposit_create_transactions_path do |f|%>
+  <%= f.hidden_field :transaction_type, value: "deposit" %>
+  <%= f.hidden_field :bank_id, value: @bank.id %>
+  <%= f.hidden_field :atm_id, value: @atm.id %>
+
+  Atm Number : <%= f.text_field :atm_no %><br><br>
+  Atm PIN : <%= f.password_field :atm_pin %><br><br>
+  Deposit Amonunt : <%= f.text_field :balance %><br><br>
+  <%= f.submit "Submit"%>
+<% end -%>
+<%= link_to "back", banks_path(bank_id: @bank.id) %>
