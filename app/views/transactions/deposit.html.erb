@@ -9,3 +9,4 @@
   Deposit Amonunt : <%= f.text_field :balance %><br><br>
   <%= f.submit "Submit"%>
 <% end -%>
+<%= link_to "back", banks_path(bank_id: @bank.id) %>
